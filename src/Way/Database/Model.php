@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Model extends Eloquent {
-    
+
     /**
      * Error message bag
      * 
@@ -17,6 +17,13 @@ class Model extends Eloquent {
      * @var Array
      */
     protected static $rules = array();
+
+    public function __construct(array $attributes = array(), $validator = null)
+    {
+        parent::__construct($attributes);
+
+        $this->validator = $validator;
+    }
 
     /**
      * Listen for save event
@@ -36,16 +43,26 @@ class Model extends Eloquent {
      */
     public function validate()
     {
-        $v = \Validator::make($this->attributes, static::$rules);
+        $v = $this->validator->make($this->attributes, static::$rules);
 
         if ($v->passes())
         {
             return true;
         }
 
-        $this->errors = $v->messages();
+        $this->setErrors($v->messages());
 
         return false;
+    }
+
+    /**
+     * Set error message bag
+     * 
+     * @var Illuminate\Support\MessageBag
+     */
+    protected function setErrors($errors)
+    {
+        $this->errors = $errors;
     }
 
     /**
@@ -57,19 +74,11 @@ class Model extends Eloquent {
     }
 
     /**
-     * Does the model have validation errors?
-     */
-    public function wasSaved()
-    {
-        return empty($this->errors);
-    }
-
-    /**
      * Inverse of wasSaved
      */
     public function hasErrors()
     {
-        return ! $this->wasSaved();
+        return ! empty($this->errors);
     }
 
 }
