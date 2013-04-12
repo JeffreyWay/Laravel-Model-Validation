@@ -23,7 +23,7 @@ class Dog extends Way\Database\Model {
 }
 ```
 
-Alternativly, edit `app/config/app.php`, and add a new item to the `aliases` array:
+Alternatively, edit `app/config/app.php`, and add a new item to the `aliases` array:
 
 ```php
 'Model' => 'Way\Database\Model'
