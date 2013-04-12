@@ -61,7 +61,7 @@ Here's an example of storing a new dog.
 ```php
 public function store()
 {
-    $dog = new Dog(Input::all())
+    $dog = new Dog(Input::all());
 
     if ($dog->save())
     {
@@ -72,7 +72,7 @@ public function store()
 }
 ```
 
-If using Eloquent's static `create` method, you can use the `hasErrors()` and `wasSaved()` methods to determine where validation errors exist.
+If using Eloquent's static `create` method, you can use the `hasErrors()` and `wasSaved()` methods to determine if validation errors exist.
 
 ```php
 $dog = Dog::create(Input::all());
@@ -80,3 +80,4 @@ $dog = Dog::create(Input::all());
 if ($dog->wasSaved()) ...
 if ($dog->hasErrors()) ...
 ```
+That's it! Have fun.
