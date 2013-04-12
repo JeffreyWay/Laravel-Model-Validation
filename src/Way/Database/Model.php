@@ -3,6 +3,7 @@
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Model extends Eloquent {
+    
     /**
      * Error message bag
      * 
@@ -18,11 +19,11 @@ class Model extends Eloquent {
     protected static $rules = array();
 
     /**
-     * Constructor
+     * Listen for save event
      */
-    public function __construct()
+    protected static function boot()
     {
-        parent::__construct();
+        parent::boot();
 
         static::saving(function($model)
         {
@@ -54,4 +55,21 @@ class Model extends Eloquent {
     {
         return $this->errors;
     }
+
+    /**
+     * Does the model have validation errors?
+     */
+    public function wasSaved()
+    {
+        return empty($this->errors);
+    }
+
+    /**
+     * Inverse of wasSaved
+     */
+    public function hasErrors()
+    {
+        return ! $this->wasSaved();
+    }
+
 }
