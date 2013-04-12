@@ -16,7 +16,7 @@ class ModelTest extends PHPUnit_Framework_TestCase {
         $response = m::mock('StdClass');
         $response->shouldReceive('passes')->once()->andReturn(true);
 
-        $validation = m::mock('StdClass');
+        $validation = m::mock('Illuminate\Validation\Validator');
         $validation->shouldReceive('make')
                    ->once()
                    ->andReturn($response);
@@ -37,7 +37,7 @@ class ModelTest extends PHPUnit_Framework_TestCase {
         $response->shouldReceive('passes')->once()->andReturn(false);
         $response->shouldReceive('messages')->once()->andReturn('foo');
 
-        $validation = m::mock('StdClass');
+        $validation = m::mock('Illuminate\Validation\Validator');
         $validation->shouldReceive('make')
                    ->once()
                    ->andReturn($response);

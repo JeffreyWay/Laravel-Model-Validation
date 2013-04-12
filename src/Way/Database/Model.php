@@ -1,6 +1,7 @@
 <?php namespace Way\Database;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Validation\Validator;
 
 class Model extends Eloquent {
 
@@ -18,11 +19,18 @@ class Model extends Eloquent {
      */
     protected static $rules = array();
 
-    public function __construct(array $attributes = array(), $validator = null)
+    /**
+     * Validator instance
+     * 
+     * @var Illuminate\Validation\Validators
+     */
+    protected $validator;
+
+    public function __construct(array $attributes = array(), Validator $validator = null)
     {
         parent::__construct($attributes);
 
-        $this->validator = $validator;
+        $this->validator = $validator ?: \App::make('validator');
     }
 
     /**
