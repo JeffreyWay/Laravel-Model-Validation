@@ -2,28 +2,39 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class NoValidationRulesException extends \Exception {}
-
 class Model extends Eloquent {
+    /**
+     * Error message bag
+     * 
+     * @var Illuminate\Support\MessageBag
+     */
     protected $errors;
 
+    /**
+     * Validation rules
+     * 
+     * @var Array
+     */
+    protected static $rules = array();
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        parent:::__construct();
+        parent::__construct();
 
         static::saving(function($model)
         {
             return $model->validate();
         });
     }
-    
+
+    /**
+     * Validates current attributes against rules
+     */
     public function validate()
     {
-        if (! isset(static::$rules) or empty(static::$rules))
-        {
-            throw new NoValidationRulesException;
-        }
-
         $v = \Validator::make($this->attributes, static::$rules);
 
         if ($v->passes())
@@ -36,6 +47,9 @@ class Model extends Eloquent {
         return false;
     }
 
+    /**
+     * Retrieve error message bag
+     */
     public function getErrors()
     {
         return $this->errors;
