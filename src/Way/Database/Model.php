@@ -20,6 +20,13 @@ class Model extends Eloquent {
     protected static $rules = array();
 
     /**
+     * Custom messages
+     * 
+     * @var Array
+     */
+    protected static $messages = array();
+
+    /**
      * Validator instance
      * 
      * @var Illuminate\Validation\Validators
@@ -51,7 +58,7 @@ class Model extends Eloquent {
      */
     public function validate()
     {
-        $v = $this->validator->make($this->attributes, static::$rules);
+        $v = $this->validator->make($this->attributes, static::$rules, static::$messages);
 
         if ($v->passes())
         {

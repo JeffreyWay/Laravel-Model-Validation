@@ -51,6 +51,11 @@ class Dog extends Model {
     protected static $rules = [
         'name' => 'required'
     ];
+
+    //Use this for custom messages
+    protected static $messages = [
+        'name.required' => 'My custom message for :attribute required'
+    ];
 }
 ```
 
