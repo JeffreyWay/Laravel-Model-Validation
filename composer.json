@@ -9,9 +9,9 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.x",
-        "illuminate/database": "4.2.x",
-        "illuminate/validation": "4.2.x"
+        "illuminate/support": ">=4.1.*,<=4.2.*",
+        "illuminate/database": ">=4.1.*,<=4.2.*",
+        "illuminate/validation": ">=4.1.*,<=4.2.*"
     },
     "require-dev": {
         "mockery/mockery": "dev-master"
